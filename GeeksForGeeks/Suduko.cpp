@@ -47,7 +47,6 @@ bool valid(vector<vector<int>>&board,int x,int y,int num)
         }
     }
     ///ALL CHECKS PASSED RETURN TRUE
-    board[x][y]=num;
     return true;
 }
 bool solve(vector<vector<int>>&board)
