@@ -11,18 +11,17 @@
  */
 class Solution {
 public:
-    int f(TreeNode *root,int sum)
+    int sumInTree(TreeNode *root,int sum)
     {
-        if(root==NULL)
+        if(root == NULL)
             return 0;
-        if(sum==root->val)
-            return 1+f(root->left,sum-root->val)+f(root->right,sum-root->val);
-        else
-            return f(root->left,sum-root->val)+f(root->right,sum-root->val);
+        if(sum == root->val)
+            return 1+sumInTree(root->left,sum-root->val)+sumInTree(root->right,sum-root->val);
+        return sumInTree(root->left,sum-root->val)+sumInTree(root->right,sum-root->val);
     }
     int pathSum(TreeNode* root, int sum) {
-        if(root==NULL)
+        if(root == NULL)
             return 0;
-        return f(root,sum)+pathSum(root->left,sum)+pathSum(root->right,sum);
+        return sumInTree(root,sum)+pathSum(root->left,sum)+pathSum(root->right,sum);
     }
 };
