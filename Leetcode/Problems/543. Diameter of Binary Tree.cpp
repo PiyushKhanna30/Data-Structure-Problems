@@ -12,20 +12,40 @@
 class Solution {
 public:
     int ans;
-    Solution():ans(0)
+    Solution()
     {
+        ans=0;
     }
-    int height(TreeNode *root)
+    int h(TreeNode* r)
     {
-        if(!root)
+        if(!r)
             return 0;
-        int l=height(root->left);
-        int r=height(root->right);
-        ans=max(l+r,ans);
-        return 1+max(l,r);
+        int a = h(r->left);
+        int b = h(r->right);
+        ans = max(ans,a+b);
+        return max(a,b)+1;
     }
     int diameterOfBinaryTree(TreeNode* root) {
-        height(root);
+        h(root);
         return ans;
     }
 };
+
+
+/*
+
+class Solution {
+public:
+    int h(TreeNode *r)
+    {
+        if(!r)
+            return 0;
+        return max(h(r->left),h(r->right))+1;
+    }
+    int diameterOfBinaryTree(TreeNode* root) {
+        if(!root)
+            return 0;
+        return max(h(root->left)+h(root->right),max(diameterOfBinaryTree(root->left),diameterOfBinaryTree(root->right)));
+    }
+};
+*/
