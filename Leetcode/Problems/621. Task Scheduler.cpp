@@ -1,23 +1,64 @@
 class Solution {
 public:
     int leastInterval(vector<char>& tasks, int n) {
-        int x = tasks.size();
+        if(n==0)return tasks.size();
         unordered_map<char,int>m;
-        int max_count=0;
-        for(int i=0;i<x;i++)
+        for(auto t : tasks)
+            m[t]+=1;
+        
+        priority_queue<pair<int,char>>pq;
+        for(auto p : m)
         {
-            m[tasks[i]]+=1;
-            max_count = max(max_count,m[tasks[i]]);
+            pq.push(make_pair(p.second,p.first));
         }
-        int ans = (max_count-1)*(n+1);
-        for(auto i : m)
+        
+        
+        int total_time = 0;
+        while(!pq.empty())
         {
-            if(i.second == max_count)
-                ans+=1;
+            vector<pair<int,char>>v;
+            int time=0;
+            for(int i = 0;i<=n && !pq.empty();i++)
+            {
+                v.push_back(pq.top());
+                pq.pop();
+                time++;
+            }
+            
+            for(auto p:v)
+            {
+                p.first--;
+                if(p.first>0)
+                {
+                    pq.push(p);
+                }
+            }
+            total_time += !pq.empty()?n+1:time;
         }
-        return max(ans,x);
+        return total_time;
     }
 };
+
+// class Solution {
+// public:
+//     int leastInterval(vector<char>& tasks, int n) {
+//         int x = tasks.size();
+//         unordered_map<char,int>m;
+//         int max_count=0;
+//         for(int i=0;i<x;i++)
+//         {
+//             m[tasks[i]]+=1;
+//             max_count = max(max_count,m[tasks[i]]);
+//         }
+//         int ans = (max_count-1)*(n+1);
+//         for(auto i : m)
+//         {
+//             if(i.second == max_count)
+//                 ans+=1;
+//         }
+//         return max(ans,x);
+//     }
+// };
 /*
 First count the number of occurrences of each element.
 Let the max frequency seen be M for element E
