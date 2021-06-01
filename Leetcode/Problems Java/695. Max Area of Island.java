@@ -1,5 +1,5 @@
 class Solution {
-    //O(n)
+    //O(n*m)
     public int maxAreaOfIsland(int[][] grid) {
         int n=grid.length;
         int m=grid[0].length;
